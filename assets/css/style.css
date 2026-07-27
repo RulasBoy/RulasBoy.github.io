@@ -316,12 +316,12 @@ main {
 
 .sidebar {
   margin-bottom: 15px;
-  max-height: 112px;
+  max-height: 145px;
   overflow: hidden;
   transition: var(--transition-2);
 }
 
-.sidebar.active { max-height: 405px; }
+.sidebar.active { max-height: 438px; }
 
 .sidebar-info {
   position: relative;
@@ -353,6 +353,8 @@ main {
   padding: 3px 12px;
   border-radius: 8px;
 }
+
+.info-content .title + .title { margin-top: 5px; }
 
 .info_more-btn {
   position: absolute;
@@ -946,9 +948,16 @@ main {
   animation: scaleUp 0.25s ease forwards;
 }
 
+.project-item.hiding { animation: scaleDown 0.25s ease forwards; }
+
 @keyframes scaleUp {
   0% { transform: scale(0.5); }
   100% { transform: scale(1); }
+}
+
+@keyframes scaleDown {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.5); opacity: 0; }
 }
 
 .project-item > a { width: 100%; }
@@ -1329,11 +1338,11 @@ textarea.form-input::-webkit-resizer { display: none; }
    */
 
   .sidebar {
-    max-height: 180px;
+    max-height: 213px;
     margin-bottom: 30px;
   }
 
-  .sidebar.active { max-height: 584px; }
+  .sidebar.active { max-height: 617px; }
 
   .sidebar-info { gap: 25px; }
 
@@ -1854,9 +1863,7 @@ textarea.form-input::-webkit-resizer { display: none; }
   .contacts-list { grid-template-columns: 1fr; }
 
   .contact-info :is(.contact-link) {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow-wrap: break-word;
   }
 
   .contact-info :is(.contact-link, time, address) {
@@ -1878,5 +1885,65 @@ textarea.form-input::-webkit-resizer { display: none; }
 	 */
 
   .timeline-text { max-width: 700px; }
+
+}
+
+
+
+
+
+/*-----------------------------------*\
+  #PROJECT MODAL
+\*-----------------------------------*/
+
+/**
+ * reuses the testimonials modal shell, but stacks the screenshot
+ * above the text instead of placing an avatar beside it
+ */
+
+.project-item .project-details { display: none; }
+
+.project-modal {
+  display: block;
+  width: calc(100% - 24px);
+  max-width: 680px;
+}
+
+.project-modal-img-box {
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.project-modal-img-box img { width: 100%; }
+
+.project-modal .project-category {
+  margin-left: 0;
+  margin-bottom: 10px;
+}
+
+.project-modal .modal-content p:not(:last-child) { margin-bottom: 10px; }
+
+
+
+
+
+/*-----------------------------------*\
+  #REDUCED MOTION
+\*-----------------------------------*/
+
+/**
+ * near-zero durations instead of animation: none, so animationend
+ * still fires and the project filter can finish hiding items
+ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 
 }
